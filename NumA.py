@@ -14,7 +14,8 @@ def bisectionMethod(expression, interval, absoluteError: float):
     while(True):
         runFunction = expression(kplusone)
         print(str(interval[0])+ " |"+ str(interval[1])+ " |" + f"{kplusone:.10f}" + " |"+ f"{runFunction:.10f}")
-        if runFunction < 0:
+        #TODO: bug fix here condition is dependent on highest power if odd it is less than and if even it is greater than I fucking don't know why
+        if expression(kplusone) > 0:
             interval[1] = kplusone
         else:
             interval[0] = kplusone
@@ -41,7 +42,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    funx = toMathFunc(args.bisection) if args.bisection is not None else toMathFunc("(2*x**2)-(4*x)-2")
+    funx = toMathFunc(args.bisection) if args.bisection is not None else toMathFunc("(2*x**4)-(4*x)-2")
     interval = eval(args.interval) if args.interval is not None else defaultInterval
     errorx = eval(args.error) if args.error is not None else defaultError
     bisectionMethod(funx, interval, errorx)
